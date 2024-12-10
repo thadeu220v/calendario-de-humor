@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário de humor</title>
+    <style>
+        #calendario {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        #calendario div {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #selecionadorDeMes {
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        #selecionadorDeMes span {
+            cursor: pointer;
+            font-size: 24px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Calendário de humor</h1>
+    <p>Espalhe para o mundo como você está hoje, marcando uma data no calendário e selecionando um emoji.</p>
+    <br>
+    <input type="month" id="selecionadorDeMes">
+    <div class="calendario" id="calendario"></div>
+    <div>
+        <label for="selecionadorDeEmoji">Escolha um emoji:</label>
+        <input type="text" id="selecionadorDeEmoji" maxlength="2">
+    </div>
+
+    <script>
+        // seleciona o elemento do calendário
+        const calendario = document.getElementById("calendario");
+// seleciona o elemento do selecionador do mês do calendário
+        const selecionadorDeMes = document.getElementById("selecionadorDeMes");
+        // cria o seletor de emoji
+        const selecionadorDeEmoji = document.getElementById("selecionadorDeEmoji");
+
+        // cria um novo evento para que ao acessar o calendário, ele pule para a função gerarCalendario
+        selecionadorDeMes.addEventListener("change", gerarCalendario);
+
+        // esta função pega os dias dos meses  e gera o calendário interativo
+        function gerarCalendario() {
+            calendario.innerHTML = "";
+            const [ano, mes] = selecionadorDeMes.value.split('-');
+            const diasDoMes = new Date(ano, mes, 0).getDate();
+
+// cria um laço de repetição que gera os dias do mês
+for (let dia = 1; dia <diasDoMes; dia++) {
+    const elementoDia = document.createElement('div');
+                elementoDia.classList.add('dia');
+                elementoDia.textContent = dia;
+                elementoDia.addEventListener('click', () => selecionarDia(elementoDia));
+                calendario.appendChild(elementoDia);
+}
+        }
+
+        // cria a função selecionarDia, que recebe como parâmetro o dia escolhido, e adiciona o emoji no dia selecionado.
+function selecionarDia (elementoDia) {
+    // cria uma variável que armazena emoji selecionado.
+    const emoji = selecionadorDeEmoji.value;
+    if (emoji) {
+        elementoDia.textContent = emoji;
+    }
+}
+
+    </script>
+</body>
+
+</html>
