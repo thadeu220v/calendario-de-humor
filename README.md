@@ -13,3 +13,14 @@ Abra uma issue caso algo não esteja funcionando bem.
 
 ## Entre em contato
 Se quiser, fale comigo no meu e-mail thadeuhenriquedosanjos@gmail.com
+
+## o que está feito
+se trata de uma página em que solicitará o mês e o ano, e em seguida, um calendário com os dias do mês é aberto.
+nele, é possível selecionar o emoji desejado, e em seguida, selecionar em qual dia o humor se aplica.
+ao clicar em um dia o emoji selecionado será incorporado ao dia do mês.
+
+### Acessibilidade é um direito
+Ao contrário de muitos desses desafios, a minha versão tem uma pegada que permite que o usuário possa navegar tanto pelo mouse, quanto pelo teclado. permitindo que usuários de tecnologias assistivas que demandem do uso exclusivo do teclado se beneficiem
+
+## contato
+Quer falar sobre este projeto? me envia uma mensagem no meu WhatsApp +55 35 99216-4289
