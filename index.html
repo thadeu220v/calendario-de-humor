@@ -52,78 +52,56 @@
 
 <body>
     <main>
-    <h1>Calendário de humor</h1>
-    <p>Espalhe para o mundo como você está hoje, marcando uma data no calendário e selecionando um emoji.</p>
-    <br>
-    <input type="month" id="selecionadorDeMes">
-    <div class="calendario" id="calendario"></div>
-    <div>
-        <label for="campoDeEmoji">Escolha um emoji:</label>
-        <input type="text" id="campoDeEmoji" maxlength="2">
-        <button id="botaoDeEmojis">Mostrar Emojis</button>
-    </div>
+        <h1>Calendário de humor</h1>
+        <p>Espalhe para o mundo como você está hoje, marcando uma data no calendário e selecionando um emoji.</p>
+        <br>
+        <input type="month" id="selecionadorDeMes">
+        <div class="calendario" id="calendario"></div>
 
-    <div id="selecionadorDeEmoji">
-        <button aria-label="Rosto sorridente com olhos sorridentes">😊</button>
-        <button aria-label="Coração vermelho">❤️</button>
-        <button aria-label="Estrela branca média">⭐</button>
-    </div>
+        <div id="selecionadorDeEmoji">
+            <button aria-label="Rosto sorridente com olhos sorridentes">😊</button>
+            <button aria-label="Coração vermelho">❤️</button>
+            <button aria-label="Estrela branca média">⭐</button>
+        </div>
 
-    <script>
-        // seleciona o elemento do calendário
-        const calendario = document.getElementById("calendario");
-        // seleciona o elemento do selecionador do mês do calendário
-        const selecionadorDeMes = document.getElementById("selecionadorDeMes");
-        // seleciona no documento o seletor de emoji
-        const campoDeEmoji = document.getElementById("campoDeEmoji");
+        <script>
+            const calendario = document.getElementById("calendario");
+            const selecionadorDeMes = document.getElementById("selecionadorDeMes");
+            const selecionadorDeEmoji = document.getElementById("selecionadorDeEmoji");
+            let elementoDiaSelecionado = null;
 
-        // define o seletor para o botão selecionador de emojis
-        const botaoDeEmojis = document.getElementById("botaoDeEmojis");
-        const selecionadorDeEmoji = document.getElementById("selecionadorDeEmoji");
+            selecionadorDeMes.addEventListener("change", gerarCalendario);
 
-        // cria um novo evento para que ao acessar o calendário, ele pule para a função gerarCalendario
-        selecionadorDeMes.addEventListener("change", gerarCalendario);
+            function gerarCalendario() {
+                calendario.innerHTML = "";
+                const [ano, mes] = selecionadorDeMes.value.split('-');
+                const diasDoMes = new Date(ano, mes, 0).getDate();
 
-        // esta função pega os dias dos meses e gera o calendário interativo
-        function gerarCalendario() {
-            calendario.innerHTML = "";
-            const [ano, mes] = selecionadorDeMes.value.split('-');
-            const diasDoMes = new Date(ano, mes, 0).getDate();
-
-            // cria um laço de repetição que gera os dias do mês
-            for (let dia = 1; dia <= diasDoMes; dia++) {
-                const elementoDia = document.createElement('div');
-                elementoDia.classList.add('dia');
-                elementoDia.textContent = dia;
-                elementoDia.addEventListener('click', () => selecionarDia(elementoDia));
-                calendario.appendChild(elementoDia);
+                for (let dia = 1; dia <= diasDoMes; dia++) {
+                    const elementoDia = document.createElement('div');
+                    elementoDia.classList.add('dia');
+                    elementoDia.textContent = dia;
+                    elementoDia.addEventListener('click', () => selecionarDia(elementoDia));
+                    calendario.appendChild(elementoDia);
+                }
             }
-        }
 
-        // cria a função selecionarDia, que recebe como parâmetro o dia escolhido, e adiciona o emoji no dia selecionado.
-        function selecionarDia(elementoDia) {
-            // cria uma variável que armazena emoji selecionado.
-            const emoji = campoDeEmoji.value;
-            if (emoji) {
-                elementoDia.textContent = emoji;
+            function selecionarDia(elementoDia) {
+                elementoDiaSelecionado = elementoDia;
+                selecionadorDeEmoji.style.display = 'block';
             }
-        }
 
-        botaoDeEmojis.addEventListener('click', () => {
-            selecionadorDeEmoji.style.display = selecionadorDeEmoji.style.display === 'none' ? 'block' : 'none';
-        });
-
-        selecionadorDeEmoji.addEventListener('click', (event) => {
-            if (event.target.tagName === 'BUTTON') {
-                campoDeEmoji.value = event.target.textContent;
-                selecionadorDeEmoji.style.display = 'none';
-            }
-        });
-    </script>
-</main>
-<footer>
-    <p>&copy; <a href="https://www.github.com/thadeu220v" target="_blank">Thadeu Henrique dos anjos</a> - 2024 - Projeto de código aberto</p>
-</footer>
+            selecionadorDeEmoji.addEventListener('click', (event) => {
+                if (event.target.tagName === 'BUTTON') {
+                    elementoDiaSelecionado.textContent = event.target.textContent;
+                    selecionadorDeEmoji.style.display = 'none';
+                }
+            });
+        </script>
+    </main>
+    <footer>
+        <p>&copy; <a href="https://www.github.com/thadeu220v" target="_blank">Thadeu Henrique dos anjos</a> - 2024 - Projeto de código aberto</p>
+    </footer>
 </body>
 
 </html>
